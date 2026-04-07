@@ -61,7 +61,7 @@ test('Create an article without description field', async () => {
 test('Create an article without text field', async () => {
   await homePage.clickNewArticleLink();
   await createArticlePage.fillTitle('Test Title');
-  await createArticlePage.fillDescription('Test Article Text');
+  await createArticlePage.fillDescription('Test Description');
   await createArticlePage.fillTag(['Test Tag']);
 
   await createArticlePage.clickPublishArticleButton();
