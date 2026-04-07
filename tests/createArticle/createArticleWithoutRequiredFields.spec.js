@@ -34,6 +34,7 @@ test('Create an article with required and optional fields', async () => {
   await createArticlePage.fillTag(['Test Tag']);
 
   await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertArticleTitleIsVisible('Test Title');
 });
 
 test('Create an article without required fields', async () => {
@@ -72,9 +73,9 @@ test('Create an article without text field', async () => {
 test('Create an article without tag field', async () => {
   await homePage.clickNewArticleLink();
   await createArticlePage.fillTitle('Test Title');
-  await createArticlePage.fillDescription('Test Article Text');
+  await createArticlePage.fillDescription('Test Description');
   await createArticlePage.fillText('Test Article Text');
 
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertErrorMessageContainsText('');
+  await createArticlePage.assertArticleTitleIsVisible('Test Title');
 });

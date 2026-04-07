@@ -90,6 +90,17 @@ export class CreateArticlePage {
    * @param {string} messageText - Text to assert
    * @returns {Promise<void>}
    */
+  /**
+   * Assert the article title is visible on the article page
+   * @param {string} title - Expected article title
+   * @returns {Promise<void>}
+   */
+  async assertArticleTitleIsVisible(title) {
+    await test.step(`Assert the article title '${title}' is visible`, async () => {
+      await expect(this.page.getByRole('heading', { name: title, level: 1 })).toBeVisible();
+    });
+  }
+
   async assertErrorMessageContainsText(messageText) {
     await test.step(`Assert the '${messageText}' error is shown`, async () => {
       await expect(this.errorMessage).toContainText(messageText);
