@@ -26,11 +26,55 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('Create an article with required and optional fields', async () => {
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillTitle('Test Title');
+  await createArticlePage.fillDescription('Test Description');
+  await createArticlePage.fillText('Test Article Text');
+  await createArticlePage.fillTag(['Test Tag']);
+
+  await createArticlePage.clickPublishArticleButton();
+});
+
+test('Create an article without required fields', async () => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText(
     'Article title cannot be empty',
   );
+});
+
+test('Create an article without description field', async () => {
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillTitle('Test Title');
+  await createArticlePage.fillText('Test Article Text');
+  await createArticlePage.fillTag(['Test Tag']);
+
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article description cannot be empty',
+  );
+});
+
+test('Create an article without text field', async () => {
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillTitle('Test Title');
+  await createArticlePage.fillDescription('Test Article Text');
+  await createArticlePage.fillTag(['Test Tag']);
+
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText(
+    'Article body cannot be empty',
+  );
+});
+
+test('Create an article without tag field', async () => {
+  await homePage.clickNewArticleLink();
+  await createArticlePage.fillTitle('Test Title');
+  await createArticlePage.fillDescription('Test Article Text');
+  await createArticlePage.fillText('Test Article Text');
+
+  await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertErrorMessageContainsText('');
 });
